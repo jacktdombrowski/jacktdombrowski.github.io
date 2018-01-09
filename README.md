@@ -1,2 +1,3 @@
 # jacktdombrowski.github.io
-## cool site bro
+## Snipets to Remember
+python -m SimpleHTTPServer
