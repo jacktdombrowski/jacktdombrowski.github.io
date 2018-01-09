@@ -1,3 +1,3 @@
 # jacktdombrowski.github.io
-## Snipets to Remember
+## Snippets to Remember
 python -m SimpleHTTPServer
