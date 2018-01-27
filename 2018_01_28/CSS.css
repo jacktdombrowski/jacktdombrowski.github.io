@@ -1,0 +1,9 @@
+body {
+    display: block;
+    margin: 0px;
+}
+.float{
+ position:absolute;
+    top:0px;
+    left:0px;
+}
