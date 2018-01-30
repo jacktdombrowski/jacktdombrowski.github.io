@@ -1,0 +1,20 @@
+body {
+    display: block;
+    margin: 0px;
+}
+.float{
+ position:absolute;
+    top:0px;
+    left:0px;
+}
+p{
+  font-family: opensans;
+  text-align: center;
+}
+h1{
+  font-family: opensans;
+  text-align: center;
+}
+.navlinks{
+  text-align: center;
+}

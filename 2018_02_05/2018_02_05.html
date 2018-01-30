@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Feb. 05 2018</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+  </head>
+  <body bgcolor="lightgrey">
+    <h1>Feb. 05 2018 - Homework</h1>
+    <p>
+      <a class="navlinks" href="../index.html">Back to INDEX</a>
+      <a class="navlinks" href="WIP.html">Homework Page</a>
+    </p>
+    <script>
+      var myNumber = 42;
+      console.log(myNumber);
+      myNumber = myNumber + 10;
+      console.log(myNumber);
+
+      var myString = "Neato";
+      myString = myString + "... not.";
+      console.log(myString);
+
+      var bigNumber = myNumber > 100;
+      console.log(bigNumber);
+
+      var myArray = ["zero", "blue", bigNumber, 10];
+      console.log(myArray);
+      console.log(myArray[1]);
+
+      var myObject = {
+        "name": "Jack",
+        "color": "black",
+        "Home-City": "Boston"
+      };
+      console.log(myObject.name);
+      console.log(myObject["Home-City"]);
+
+      var sayHello = function() {
+        console.log("Hello!");
+      }
+      sayHello();
+
+      var sayText = function(name) {
+        console.log("Hi " + name + "!");
+      }
+      sayText("Jack");
+
+      var plusTen = function(num) {
+        var x = num + 10;
+        return x;
+      }
+      var thirty = plusTen(myNumber);
+        console.log(thirty);
+
+      var myNumber = 12;
+
+      if (myNumber > 10) {
+          console.log("greater than 10!");
+      }
+      else {
+          console.log("less than 10!");
+      }
+
+
+    </script>
+  </body>
+</html>
