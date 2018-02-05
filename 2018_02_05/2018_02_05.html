@@ -5,64 +5,84 @@
     <title>Feb. 05 2018</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
   </head>
-  <body bgcolor="lightgrey">
+  <body id="myBG" style="background-color: rgb(211, 211, 211)">
     <h1>Feb. 05 2018 - Homework</h1>
     <p>
-      <a class="navlinks" href="../index.html">Back to INDEX</a>
-      <a class="navlinks" href="WIP.html">Homework Page</a>
+      <a class="navlinks" href="../index.html">Back to INDEX</a><br/><br/>
+      In the console, run backgroundPicker with a number between 0 and 255 to set the grey value of the background.
     </p>
     <script>
       var myNumber = 42;
-      console.log(myNumber);
+      // console.log(myNumber);
       myNumber = myNumber + 10;
-      console.log(myNumber);
+      // console.log(myNumber);
 
       var myString = "Neato";
       myString = myString + "... not.";
-      console.log(myString);
+      // console.log(myString);
 
       var bigNumber = myNumber > 100;
-      console.log(bigNumber);
+      // console.log(bigNumber);
 
       var myArray = ["zero", "blue", bigNumber, 10];
-      console.log(myArray);
-      console.log(myArray[1]);
+      // console.log(myArray);
+      // console.log(myArray[1]);
 
       var myObject = {
         "name": "Jack",
         "color": "black",
         "Home-City": "Boston"
       };
-      console.log(myObject.name);
-      console.log(myObject["Home-City"]);
+      // console.log(myObject.name);
+      // console.log(myObject["Home-City"]);
 
       var sayHello = function() {
         console.log("Hello!");
       }
-      sayHello();
+      // sayHello();
 
       var sayText = function(name) {
         console.log("Hi " + name + "!");
       }
-      sayText("Jack");
+      // sayText("Jack");
 
       var plusTen = function(num) {
         var x = num + 10;
         return x;
       }
       var thirty = plusTen(myNumber);
-        console.log(thirty);
+        // console.log(thirty);
 
       var myNumber = 12;
 
-      if (myNumber > 10) {
-          console.log("greater than 10!");
-      }
-      else {
-          console.log("less than 10!");
-      }
+      // if (myNumber > 10) {
+          // console.log("greater than 10!");
+      // }
+      // else {
+          // console.log("less than 10!");
+      // }
+
+      // Homework Below
 
 
+      var backgroundPicker = function(colorNumber){
+        var colorNumberString = String(colorNumber);
+        var open = "rgb(";
+        var comma = ", ";
+        var close = ")";
+        var rgbString = open.concat(colorNumberString, comma, colorNumberString, comma, colorNumberString, close);
+        if (colorNumber > 255) {
+          console.log("Error - Number must be within 0-255");
+        }
+        else if (colorNumber < 0) {
+          console.log("Error - Number must be within 0-255");
+        }
+        else {
+          console.log(rgbString)
+          document.getElementById("myBG").style.backgroundColor = rgbString;
+        }
+      }
+      // backgroundPicker(20)
     </script>
   </body>
 </html>
