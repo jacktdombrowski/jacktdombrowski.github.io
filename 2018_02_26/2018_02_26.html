@@ -2,140 +2,58 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Feb. 12 2018</title>
+    <title>Feb. 26 2018</title>
     <link rel="stylesheet" type="text/css" href="../style.css">
-    <script src="../numbers.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body id="myBody" bgcolor="lightgrey">
-    <h1>Feb. 12 2018 - Homework</h1>
+    <h1>Feb. 26 2018 - Homework</h1>
     <p>
       <a class="navlinks" href="../index.html">Back to INDEX</a><br/><br/>
-      <button type="button" onclick="clickToggle()">Click to Update Bars</button>
     </p>
-    <!-- <svg id="class" width="100%"></svg> -->
-    <svg id="homework" width="100%" height="400"></svg>
   </body>
   <script>
-    // The Variable y calls for a function found in the numbers.js library we made
-    var y = numbers.squared(4);
 
-    // bodyA is written in "vanilla" Javascript
-    var bodyA = document.getElementById("myBody");
-    bodyA.style.backgroundColor = "red";
-    bodyA.style.fontFamily = "Comic Sans MS";
-    bodyA.id = "newid";
-
-    // bodyB is written in D3
-    // each "body" will overwrite the one above it
-    var bodyB1 = d3.select("body");
-    bodyB1.style("background-color", "lightgrey");
-    bodyB1.style("font-family", "opensans");
-    bodyB1.attr("id", "myBody");
-
-    // bodyB can also be written in D3 as
-    var bodyB2 = d3.select("body")
-      .style("background-color", "lightgrey")
-      .style("font-family", "opensans")
-      .attr("id", "myBody");
-
-    var myData = [2, 15, 9, 19, 5];
-    var newData = [5, 20, 13];
-
-    var drawCircles = function(dataArray){
-      // SELECT: Select the svg Artboard
-      var svg = d3.select("#class");
-      // APPLY: Pass the dataArray to all objects with the Identified CLass ".dot"
-      var dots = svg.selectAll(".dot")
-        .data(dataArray);
-      // ENTER: Append Objects to each dataPoint and add attributes
-      dots.enter().append("circle")
-        .attr("class", "dot")
-        .attr("r", 0)
-        .attr("fill", "black")
-        .attr("cx", function(dataPoint, index){
-          return 25 + (index * 50);
-        })
-        .attr("cy", 25)
-        .transition()
-        .duration(3000)
-        .attr("r", function(dataPoint){
-          return dataPoint;
-        });
-      // UPDATE: Redraw Objects based on New Data
-      dots
-        .transition()
-        .duration(3000)
-        .attr("fill", "darkgrey")
-        .attr("r", function(dataPoint) {
-          return dataPoint;
-        });
-      // EXIT: Remove objects with no Data
-      dots.exit()
-        .transition()
-        .duration(3000)
-        .attr("r", 0)
-        .remove();
-    };
-
-    var startData = [1, 25, 50, 75, 100, 125, 150, 175];
-    var middleData = [2, 175, 150, 125, 100, 75, 50, 25];
-    var endData = [3, 100, 100, 100, 100, 100, 100, 100];
-
-    var drawBarGraph = function(dataArray){
-      var svg = d3.select("#homework");
-      var bars = svg.selectAll(".bar")
-        .data(dataArray);
-      var myDataPoint = function(dataPoint){
-        return dataPoint;
-      }
-      bars.enter().append("rect")
-        .attr("class", "bar")
-        .attr("y", function(dataPoint, index){
-          return 25 + (index * 50);
-        })
-        .attr("x", 25)
-        .attr("width", 0)
-        .attr("height", 15)
-        .attr("fill", "lightgrey")
-        .transition()
-        .duration(3000)
-        .attr("width", myDataPoint)
-        .attr("fill", "black")
-      bars
-        .transition()
-        .duration(3000)
-        .attr("fill", "darkgrey")
-        .attr("width", function(dataPoint) {
-          return dataPoint;
-        });
-      bars.exit()
-        .transition()
-        .duration(3000)
-        .attr("width", 0)
-        .remove();
-    };
-
-    var clickToggle = function(x){
-      var svg = d3.select("#homework");
-      var x = svg.selectAll(".bar");
-      if (x[0] = startData[0]) {
-        console.log("Data Set 2");
-        drawBarGraph(middleData);
-      }
-      else if (x[0] = middleData[0]) {
-        console.log("Data Set 3");
-        drawBarGraph(endData);
-      }
-      else if (x[0] = endData[0]) {
-        console.log("Data Set 1");
-        drawBarGraph(startData);
+    d3.text("textData.txt", function(error, data) {
+      if (error) {
+        console.log("Error!");
       }
       else {
-        console.log("No Data");
-        drawBarGraph(startData);
+        console.log("TXT String");
+        console.log(data);
       }
-    };
+    });
+
+    d3.csv("dataTable.csv", function(error, data) {
+      if (error) {
+        console.log("Error!");
+      }
+      else {
+        console.log("CSV Array");
+        console.log(data);
+        // forEach runs a function on each and every item in the object or array
+        // parseFloat function converts Strings to Numbers,
+        data.forEach(function(d) {
+          d.value = parseFloat(d.value);
+        })
+      }
+    });
+
+    d3.json("dataObject.json", function(error, data) {
+      if (error) {
+        console.log("Error!");
+      }
+      else {
+        console.log("JSON Object");
+        console.log(data);
+      }
+    });
+
+    var url = "https://api.datausa.io/api/?required=income&show=geo&sumlevel=state";
+
+    d3.json(url, function(error, data) {
+      console.log(data);
+    });
 
   </script>
 </html>
