@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mar. 12 2018</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body id="myBody" bgcolor="lightgrey">
+    <h1>Mar. 12 2018 - Homework</h1>
+    <p>
+      <a class="navlinks" href="../index.html">Back to INDEX</a><br/><br/>
+    </p>
+    <svg id="viz">
+    </svg>
+    <div id="tooltip"></div>
+    </div>
+  </body>
+  <script>
+
+    // Linear Scales
+    var distances = [
+      {name: "school", distance: 0.2},
+      {name: "store", distance: 2.4},
+      {name: "home", distance: 4.7},
+      {name: "work", distance: 3.1},
+      {name: "family", distance: 3.1},
+    ];
+    var padding = 100;
+
+    var maxDistance = d3.max(distances, function(d){
+      return d.distance
+    });
+
+    var xScale = d3.scaleLinear()
+      .domain([0, maxDistance])
+      .range([padding, window.innerWidth - padding * 2]);
+
+    var svg = d3.select("#viz")
+      .attr("width", window.innerWidth)
+      .attr("height", window.innerHeight);
+
+    var xAxis = d3.axisBottom(xScale);
+    d3.select("g#xAxis")
+      .attr("transform", "translate(0, 150)")
+      .call(xAxis);
+
+    var circles = svg.selectAll("circle")
+      .data(distances);
+
+    circles.enter().append("circle")
+      .attr("cx", padding)
+      .attr("cy", 100)
+      .attr("r", 20)
+      .on("mouseenter", function(d){
+        d3.select("#tooltip")
+          .style("display","block")
+          .style("top", "130px")
+          .style("left", xScale(d.distance) + "px")
+          .text(d.name);
+      })
+      .on("mouseleave", function(d){
+        d3.select("#tooltip")
+          .style("display","none");
+      })
+      .transition().duration(1500)
+        .attr("cx", function(d) {
+          return xScale(d);
+        });
+    // var firstX = xScale(data[0]);
+
+  </script>
+</html>

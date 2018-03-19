@@ -1,0 +1,9 @@
+planet,radius,gravity,dayLength,surfaceTempLow,surfaceTempHigh,atmComp1,atmComp2,atmComp3,moons
+Mercury,2439.7,3.7,58.646,-173,427,none,none,none,0
+Venus,6051.8,8.87,-243.018,462,462,Carbon Dioxide,Nitrogen,none,0
+Earth,6371,9.80665,.99726968,-88,58,Nitrogen,Oxygen,none,1
+Mars,3389.5,3.71,1.026,-153,20,Carbon Dioxide,Nitrogen,Argon,2
+Jupiter,69911,24.79,0.41354,0,0,Hydrogen,Helium,none,69
+Saturn,58232,10.4,0.444,0,0,Hydrogen,Helium,none,62
+Uranus,25362,8.87,-0.718,0,0,Hydrogen,Helium,Methane,27
+Neptune,24622,11.15,0.671,0,0,Hydrogen,Helium,Methane,14
