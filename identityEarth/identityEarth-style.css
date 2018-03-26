@@ -28,7 +28,7 @@ h1{
   position: absolute;
 }
 #xAxis {
-  font-family: "Comic Sans MS";
+  font-family: sans-serif;
   font-size: 20px;
 }
 .tick line {
