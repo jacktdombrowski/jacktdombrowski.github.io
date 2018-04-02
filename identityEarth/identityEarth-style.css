@@ -8,11 +8,13 @@ body {
     left:0px;
 }
 p{
-  font-family: Franklin Gothic URW;
+  font-family: franklin-gothic-urw;
+  font-weight: Demi;
   text-align: center;
 }
 h1{
-  font-family: Franklin Gothic URW;
+  font-family: franklin-gothic-urw;
+  font-weight: Demi;
   text-align: center;
 }
 .navlinks{

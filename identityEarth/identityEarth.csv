@@ -1,4 +1,4 @@
-planet,radius,gravity,dayLength,surfaceTempLow,surfaceTempHigh,atmComp1,atmComp2,atmComp3,moons
+name,radius,gravity,dayLength,surfaceTempLow,surfaceTempHigh,atmComp1,atmComp2,atmComp3,moons
 Mercury,2439.7,3.7,58.646,-173,427,none,none,none,0
 Venus,6051.8,8.87,-243.018,462,462,Carbon Dioxide,Nitrogen,none,0
 Earth,6371,9.80665,.99726968,-88,58,Nitrogen,Oxygen,none,1

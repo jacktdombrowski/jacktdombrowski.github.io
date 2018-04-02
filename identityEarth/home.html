@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>HOME</title>
     <link rel="stylesheet" type="text/css" href="identityEarth-style.css">
-    <!-- <link rel="stylesheet" href="https://use.typekit.net/dbh8opd.css"> -->
+    <link rel="stylesheet" href="https://use.typekit.net/dbh8opd.css">
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body id="Body">
@@ -13,103 +13,85 @@
       <g id="xAxis"></g>
     </svg>
   </body>
+
   <script>
-    d3.csv("identityEarth.csv", function(error, data) {
-      if (error) {
-        console.log("Error!");
-      }
-      else {
-        console.log("CSV Array");
-        //console.log(data);
-        data.forEach(function(d) {
-          d.value = parseFloat(d.value);
-        })
-      }
-    });
+// planetData is defined within the queue, but Dave wrote it so it can be read by functions outside the queue
+// otherPlanet needs to be rewritten as a function that takes input from dropdown menu
+// indicator needs to be rewritten as a function that takes input from dropdown menu
+    var planetData;
+    var otherPlanet = "Mars";
+    var indicator = "radius";
 
-    var planetInfo = function(planet) {
-      d3.csv("identityEarth.csv", function(data) {
-        console.log(data[0]);
+    d3.queue()
+      .defer(d3.csv, "identityEarth.csv")
+      .awaitAll(function(error, dataArray) {
+        planetData = dataArray[0];
+        planetData.forEach(function(planet) {
+          planet.radius = parseFloat(planet.radius);
+        });
+        console.log(planetData);
+        redraw();
+        comPoint();
       });
-    };
 
-    var planetRadii = d3.csv("identityEarth.csv", function(err, data) {
-      console.log(data)
-      var radii = data.map(function(d) { return d.col2 });
-      console.log(radii);
-    });
+// == is override current value with new value ex [old value ==(overwrittenby) new value]
+// || means or
+    function redraw() {
+      var data = planetData.filter(function(d) {
+        return d.name == "Earth" || d.name == otherPlanet;
+      });
+      console.log(data);
+    }
 
-    var myData = planetRadii;
-    var newData = [33, 4, 20];
+// my draw function
     var drawCircles = function(dataArray) {
       var svg = d3.select("#space")
-        .attr("width", window.innerWidth)
-        .attr("height", window.innerHeight);
-      var dots = svg.selectAll(".dot")
+      var planets = svg.selectAll(".planet")
         .data(dataArray);
-      // enter circles
-      dots.enter().append("circle")
-        .attr("class", "dot")
+      planets.enter().append("circle")
+        .attr("class", "planet")
         .attr("r", 0)
         .attr("fill", "black")
         .attr("cx", function(dataPoint, index) {
           return 25 + (index * 50);
         })
-        .attr("cy", 25)
-        .transition()
-        .duration(5000)
-        .attr("r", function(dataPoint) {
-          return dataPoint / 2;
-        });
-      // update circles
-      dots
-        .transition()
-        .duration(5000)
-        .attr("r", function(dataPoint) {
-          return dataPoint / 2;
-        })
-        .attr("fill", "green");
-      // exit circles
-      dots.exit()
-        .transition()
-        .duration(5000)
-        .attr("r", 0)
-        .remove();
-    };
-    drawCircles(myData);
+    }
 
-    //
-    // var distances = [
-    //   {name: "store", distance: 0.2},
-    //   {name: "school", distance: 1.2},
-    //   {name: "family", distance: 0.7},
-    //   {name: "friend", distance: 4},
-    //   {name: "work", distance: 3}
-    // ];
-    // var padding = 100;
-    // var maxDistance = d3.max(distances, function(d) {
-    //   return d.distance;
-    // });
-    // var xScale = d3.scaleLinear()
-    //   .domain([0, maxDistance])
-    //   .range([padding, window.innerWidth - padding * 2]);
-    // var svg = d3.select("#space")
-    //   .attr("width", window.innerWidth)
-    //   .attr("height", window.innerHeight);
-    // var xAxis = d3.axisBottom(xScale);
-    // d3.select("g#xAxis")
-    //   .attr("transform", "translate(0, 150)")
-    //   .call(xAxis);
-    // var circles = svg.selectAll("circle")
-    //   .data(distances);
-    // circles.enter().append("circle")
-    //   .attr("cx", padding)
-    //   .attr("cy", 100)
-    //   .attr("r", 20)
-    //   .transition().duration(1500)
-    //     .attr("cx", function(d) {
-    //       return xScale(d.distance);
+
+// example draw function
+    // var drawCircles = function(dataArray) {
+    //   var svg = d3.select("#viz");
+    //   var dots = svg.selectAll(".dot")
+    //     .data(dataArray);
+    //   // enter circles
+    //   dots.enter().append("circle")
+    //     .attr("class", "dot")
+    //     .attr("r", 0)
+    //     .attr("fill", "black")
+    //     .attr("cx", function(dataPoint, index) {
+    //       return 25 + (index * 50);
+    //     })
+    //     .attr("cy", 25)
+    //     .transition()
+    //     .duration(1000)
+    //     .attr("r", function(dataPoint) {
+    //       return dataPoint / 2;
     //     });
+    //   // update circles
+    //   dots
+    //     .transition()
+    //     .duration(1000)
+    //     .attr("r", function(dataPoint) {
+    //       return dataPoint / 2;
+    //     })
+    //     .attr("fill", "green");
+    //   // exit circles
+    //   dots.exit()
+    //     .transition()
+    //     .duration(1000)
+    //     .attr("r", 0)
+    //     .remove();
+    // };
 
     </script>
 </html>
