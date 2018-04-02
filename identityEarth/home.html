@@ -30,13 +30,9 @@
   </body>
   <script>
 
-// indicator needs to be rewritten as a function that takes input from dropdown menu
     var planetData;
-    var indicator = "radius";
     var myData = [24, 50];
     var newData = [33, 4];
-    var activeData = new Array()
-var cars = new Array("Saab", "Volvo", "BMW");
 
     d3.queue()
       .defer(d3.csv, "identityEarth.csv")
@@ -53,15 +49,12 @@ var cars = new Array("Saab", "Volvo", "BMW");
         console.log(planetData);
         redraw();
         drawRadius(myData);
-        // console.log(activeData);
       });
 
-    function redraw() {
-      var data = planetData.filter(function(d) {
-        return d.name == "Earth" || d.name == otherPlanet();
-      });
-      console.log(data);
-    };
+// I've got these function filtering the array down to two planet objects
+// but I can't figure out how to write a function that filters it by a second
+// parameter: I can get all info on Earth and Mercury, but not the radius of either
+// one or both in a form that I can place in my draw function
 
     function otherPlanet() {
       var x = document.getElementById("planetSelect").value;
@@ -70,13 +63,24 @@ var cars = new Array("Saab", "Volvo", "BMW");
 
     function otherDataPoint() {
       var x = document.getElementById("dataPointSelect").value;
-        return x;
+        return "[0]." + x;
       };
 
-    function getDataPoint() {
-    };
+      function getActiveData() {
+        var x = otherDataPoint()
+        var activeData = [0].radius;
+          return activeData;
+      }
 
-// my draw function
+      function redraw() {
+        var data = planetData.filter(function(d) {
+          return d.name == "Earth" || d.name == otherPlanet();
+        });
+        console.log(data);
+        console.log([0].radius);
+      };
+
+// draw function needs to be stylized
 
     var drawRadius = function(dataArray) {
       var svg = d3.select("#space")
