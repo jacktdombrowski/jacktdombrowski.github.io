@@ -9,7 +9,7 @@
   </head>
   <body id="Body">
     <h1>Planet Size Comparison</h1>
-    <svg id="space" width="100%" height="50%">
+    <svg id="space" width="100%" height="400">
       <g id="xAxis"></g>
     </svg>
     <select id="planetSelect" onchange="redraw()">
@@ -31,8 +31,6 @@
   <script>
 
     var planetData;
-    var myData = [24, 50];
-    var newData = [33, 4];
 
     d3.queue()
       .defer(d3.csv, "identityEarth.csv")
@@ -48,13 +46,7 @@
         });
         console.log(planetData);
         redraw();
-        drawRadius(myData);
       });
-
-// I've got these function filtering the array down to two planet objects
-// but I can't figure out how to write a function that filters it by a second
-// parameter: I can get all info on Earth and Mercury, but not the radius of either
-// one or both in a form that I can place in my draw function
 
     function otherPlanet() {
       var x = document.getElementById("planetSelect").value;
@@ -77,12 +69,12 @@
           return d.name == "Earth" || d.name == otherPlanet();
         });
         console.log(data);
-        console.log([0].radius);
+        drawPlanets(data);
       };
 
 // draw function needs to be stylized
 
-    var drawRadius = function(dataArray) {
+    var drawPlanets = function(dataArray) {
       var svg = d3.select("#space")
       var planets = svg.selectAll(".planet")
         .data(dataArray);
@@ -93,20 +85,19 @@
         .attr("cx", function(dataPoint, index) {
           return 200 + (index * 100);
         })
-        .attr("cy", 25)
+        .attr("cy", 200)
         .transition()
         .duration(1000)
         .attr("r", function(dataPoint) {
-          return dataPoint / 2;
-        });
+          return dataPoint.radius / 100;
+        })
       // update circles
       planets
         .transition()
         .duration(1000)
         .attr("r", function(dataPoint) {
-          return dataPoint / 2;
+          return dataPoint.radius / 100;
         })
-        .attr("fill", "green");
       // exit circles
       planets.exit()
         .transition()
