@@ -9,18 +9,34 @@
   </head>
   <body id="Body">
     <h1>Planet Size Comparison</h1>
-    <svg id="space">
+    <svg id="space" width="100%" height="50%">
       <g id="xAxis"></g>
     </svg>
+    <select id="planetSelect" onchange="redraw()">
+      <option value="Mercury">Mercury
+      <option value="Venus">Venus
+      <option value="Mars">Mars
+      <option value="Jupiter">Jupiter
+      <option value="Saturn">Saturn
+      <option value="Uranus">Uranus
+      <option value="Neptune">Neptune
+    </select>
+    <select id="dataPointSelect" onchange="redraw()">
+      <option value="radius">Radius
+      <option value="gravity">Gravity
+      <option value="dayLength">Average Day Length
+      <option value="moons">Number of Moons
+    </select>
   </body>
-
   <script>
-// planetData is defined within the queue, but Dave wrote it so it can be read by functions outside the queue
-// otherPlanet needs to be rewritten as a function that takes input from dropdown menu
+
 // indicator needs to be rewritten as a function that takes input from dropdown menu
     var planetData;
-    var otherPlanet = "Mars";
     var indicator = "radius";
+    var myData = [24, 50];
+    var newData = [33, 4];
+    var activeData = new Array()
+var cars = new Array("Saab", "Volvo", "BMW");
 
     d3.queue()
       .defer(d3.csv, "identityEarth.csv")
@@ -28,23 +44,41 @@
         planetData = dataArray[0];
         planetData.forEach(function(planet) {
           planet.radius = parseFloat(planet.radius);
+          planet.gravity = parseFloat(planet.gravity);
+          planet.dayLength = parseFloat(planet.dayLength);
+          planet.surfaceTempLow = parseFloat(planet.surfaceTempLow);
+          planet.surfaceTempHigh = parseFloat(planet.surfaceTempHigh);
+          planet.moons = parseFloat(planet.moons);
         });
         console.log(planetData);
         redraw();
-        comPoint();
+        drawRadius(myData);
+        // console.log(activeData);
       });
 
-// == is override current value with new value ex [old value ==(overwrittenby) new value]
-// || means or
     function redraw() {
       var data = planetData.filter(function(d) {
-        return d.name == "Earth" || d.name == otherPlanet;
+        return d.name == "Earth" || d.name == otherPlanet();
       });
       console.log(data);
-    }
+    };
+
+    function otherPlanet() {
+      var x = document.getElementById("planetSelect").value;
+        return x;
+      };
+
+    function otherDataPoint() {
+      var x = document.getElementById("dataPointSelect").value;
+        return x;
+      };
+
+    function getDataPoint() {
+    };
 
 // my draw function
-    var drawCircles = function(dataArray) {
+
+    var drawRadius = function(dataArray) {
       var svg = d3.select("#space")
       var planets = svg.selectAll(".planet")
         .data(dataArray);
@@ -53,45 +87,30 @@
         .attr("r", 0)
         .attr("fill", "black")
         .attr("cx", function(dataPoint, index) {
-          return 25 + (index * 50);
+          return 200 + (index * 100);
         })
-    }
+        .attr("cy", 25)
+        .transition()
+        .duration(1000)
+        .attr("r", function(dataPoint) {
+          return dataPoint / 2;
+        });
+      // update circles
+      planets
+        .transition()
+        .duration(1000)
+        .attr("r", function(dataPoint) {
+          return dataPoint / 2;
+        })
+        .attr("fill", "green");
+      // exit circles
+      planets.exit()
+        .transition()
+        .duration(1000)
+        .attr("r", 0)
+        .remove();
+    };
 
-
-// example draw function
-    // var drawCircles = function(dataArray) {
-    //   var svg = d3.select("#viz");
-    //   var dots = svg.selectAll(".dot")
-    //     .data(dataArray);
-    //   // enter circles
-    //   dots.enter().append("circle")
-    //     .attr("class", "dot")
-    //     .attr("r", 0)
-    //     .attr("fill", "black")
-    //     .attr("cx", function(dataPoint, index) {
-    //       return 25 + (index * 50);
-    //     })
-    //     .attr("cy", 25)
-    //     .transition()
-    //     .duration(1000)
-    //     .attr("r", function(dataPoint) {
-    //       return dataPoint / 2;
-    //     });
-    //   // update circles
-    //   dots
-    //     .transition()
-    //     .duration(1000)
-    //     .attr("r", function(dataPoint) {
-    //       return dataPoint / 2;
-    //     })
-    //     .attr("fill", "green");
-    //   // exit circles
-    //   dots.exit()
-    //     .transition()
-    //     .duration(1000)
-    //     .attr("r", 0)
-    //     .remove();
-    // };
 
     </script>
 </html>
