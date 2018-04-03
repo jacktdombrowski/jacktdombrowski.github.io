@@ -7,31 +7,38 @@
     <link rel="stylesheet" href="https://use.typekit.net/dbh8opd.css">
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
-  <body id="Body">
-    <h1>Planet Size Comparison</h1>
-    <svg id="space" width="100%" height="400">
+  <body id="Body" background="assets/space-bg.jpg">
+    <h1>UNE SYSTEM PLANET COMPARISON</h1>
+    <svg id="space">
       <g id="xAxis"></g>
     </svg>
-    <select id="planetSelect" onchange="redraw()">
-      <option value="Mercury">Mercury
-      <option value="Venus">Venus
-      <option value="Mars">Mars
-      <option value="Jupiter">Jupiter
-      <option value="Saturn">Saturn
-      <option value="Uranus">Uranus
-      <option value="Neptune">Neptune
-    </select>
-    <select id="dataPointSelect" onchange="redraw()">
-      <option value="radius">Radius
-      <option value="gravity">Gravity
-      <option value="dayLength">Average Day Length
-      <option value="moons">Number of Moons
-    </select>
+    <div class="custom-select">
+      <select id="planetSelect" onchange="planetUpdate()">
+        <option value="Mercury">Mercury
+        <option value="Venus">Venus
+        <option value="Mars">Mars
+        <option value="Jupiter">Jupiter
+        <option value="Saturn">Saturn
+        <option value="Uranus">Uranus
+        <option value="Neptune">Neptune
+      </select>
+    </div>
+    <div class="custom-select">
+      <select id="dataPointSelect" onchange="indicatorUpdate()" class="custom-select">
+        <option value="radius">Radius
+        <option value="gravity">Gravity
+        <option value="dayLength">Average Day Length
+        <option value="moons">Number of Moons
+      </select>
+    </div>
   </body>
   <script>
-
+    //Global Variables
     var planetData;
+    var filteredData;
+    var indicator = "radius";
 
+    //Data Loading
     d3.queue()
       .defer(d3.csv, "identityEarth.csv")
       .awaitAll(function(error, dataArray) {
@@ -45,59 +52,75 @@
           planet.moons = parseFloat(planet.moons);
         });
         console.log(planetData);
-        redraw();
+        planetUpdate();
+        indicatorUpdate();
       });
 
+    //Helper Functions
     function otherPlanet() {
       var x = document.getElementById("planetSelect").value;
         return x;
-      };
+    };
 
-    function otherDataPoint() {
+    function getIndicator() {
       var x = document.getElementById("dataPointSelect").value;
-        return "[0]." + x;
-      };
+        return x;
+    };
 
-      function getActiveData() {
-        var x = otherDataPoint()
-        var activeData = [0].radius;
-          return activeData;
-      }
+    function planetUpdate() {
+      filteredData = planetData.filter(function(d) {
+        return d.name == "Earth" || d.name == otherPlanet();
+      });
+      console.log(filteredData);
+      drawPlanets();
+    };
 
-      function redraw() {
-        var data = planetData.filter(function(d) {
-          return d.name == "Earth" || d.name == otherPlanet();
-        });
-        console.log(data);
-        drawPlanets(data);
-      };
+    function indicatorUpdate() {
+      indicator = getIndicator();
+      drawPlanets();
+    };
 
-// draw function needs to be stylized
+    //SVG Styles
+    var padding = 100;
+    // var maxIndicator = d3.max(filteredData, function(d) {
+    //   return dataPoint[indicator];
+    // });
+    // var xScale = d3.scaleLinear()
+    //   .domain([0, maxIndicator])
+    //   .range([padding, window.innerWidth - padding * 2]);
+    var svg = d3.select("#space")
+      .attr("width", window.innerWidth)
+      .attr("height", 500);
 
-    var drawPlanets = function(dataArray) {
+    //Draw Functions
+    var drawPlanets = function() {
       var svg = d3.select("#space")
       var planets = svg.selectAll(".planet")
-        .data(dataArray);
+        .data(filteredData);
       planets.enter().append("circle")
         .attr("class", "planet")
-        .attr("r", 0)
-        .attr("fill", "black")
-        .attr("cx", function(dataPoint, index) {
-          return 200 + (index * 100);
-        })
-        .attr("cy", 200)
+        .attr("r", 10)
+        .attr("fill", "yellow")
+        .attr("cx", padding)
+        .attr("cy", [window.innerHeight / 2])
         .transition()
+        // .attr("cx", function(d) {
+        //   return xScale(dataPoint[indicator]);
+        // })
         .duration(1000)
-        .attr("r", function(dataPoint) {
-          return dataPoint.radius / 100;
-        })
+        // .attr("r", function(dataPoint) {
+        //   return (dataPoint[indicator] / 200);
+        // })
       // update circles
       planets
         .transition()
         .duration(1000)
-        .attr("r", function(dataPoint) {
-          return dataPoint.radius / 100;
+        .attr("cx", function(dataPoint, index) {
+          return padding + (dataPoint[indicator] / 2);
         })
+        // .attr("r", function(dataPoint) {
+        //   return dataPoint[indicator];
+        // })
       // exit circles
       planets.exit()
         .transition()
@@ -105,7 +128,6 @@
         .attr("r", 0)
         .remove();
     };
-
 
     </script>
 </html>
