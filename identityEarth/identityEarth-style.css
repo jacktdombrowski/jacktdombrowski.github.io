@@ -9,10 +9,22 @@ body {
 }
 h1{
   font-family: "industry";
-  font-weight: Ultra;
+  font-weight: 900;
   text-align: center;
+  text-transform: uppercase;
   color: #F2F2F2;
+  margin-top: 40px;
+  line-height: 20px;
 }
+h2{
+  font-family: "industry";
+  font-style: italic;
+  font-weight: 100;
+  text-align: center;
+  text-transform: uppercase;
+  color: #F2F2F2;
+  margin-bottom: 40px;
+  line-height: 0px;
 p{
   font-family: franklin-gothic-urw;
   font-weight: Demi;
