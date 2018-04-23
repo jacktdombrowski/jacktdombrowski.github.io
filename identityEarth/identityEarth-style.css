@@ -19,7 +19,7 @@ h1{
   margin-top: 40px;
   line-height: 20px;
 }
-h2{
+h4{
   font-family: "industry";
   font-style: italic;
   font-weight: 100;
@@ -55,12 +55,11 @@ select#dataPointSelect{
 }
 
 #tooltip {
-  border: 1px solid black;
   display: none;
   font-family: franklin-gothic-urw;
   font-weight: Demi;
   text-align: center;
   text-decoration-color: white;
-  font-size: 16px;
+  font-size: 14 px;
   padding: 10px;
 }

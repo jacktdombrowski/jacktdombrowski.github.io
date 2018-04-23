@@ -9,11 +9,10 @@
   </head>
   <body id="Body" background="assets/final-bg.svg">
     <h1>UNE System Planet Comparison</h1>
-    <h2 id="legend">Now showing: Earth's size compared to the size of Mercury</h2>
+    <h4 id="legend">Now showing: Earth's size compared to the size of Mercury</h4>
     <svg id="space">
       <g id="xAxis"></g>
     </svg>
-    <div id="tooltip"></div>
     <div id="customSelect">
       <select id="planetSelect" onchange="drawPlanets()">
         <option value="Mercury">Mercury
@@ -33,6 +32,7 @@
         <option value="mass">Mass
         <option value="dayLength">Average Day Length
       </select>
+      <div id="tooltip"></div>
     </div>
   </body>
   <script>
