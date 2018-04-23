@@ -1,9 +1,12 @@
-name,radius,gravity,dayLength,surfaceTempLow,surfaceTempHigh,atmComp1,atmComp2,atmComp3,moons
-Mercury,2439.7,3.7,58.646,-173,427,none,none,none,0
-Venus,6051.8,8.87,-243.018,462,462,Carbon Dioxide,Nitrogen,none,0
-Earth,6371,9.80665,.99726968,-88,58,Nitrogen,Oxygen,none,1
-Mars,3389.5,3.71,1.026,-153,20,Carbon Dioxide,Nitrogen,Argon,2
-Jupiter,69911,24.79,0.41354,0,0,Hydrogen,Helium,none,69
-Saturn,58232,10.4,0.444,0,0,Hydrogen,Helium,none,62
-Uranus,25362,8.87,-0.718,0,0,Hydrogen,Helium,Methane,27
-Neptune,24622,11.15,0.671,0,0,Hydrogen,Helium,Methane,14
+name,radius,gravity,mass,dayLength,moons,color
+Earth,6371,9.80665,5972190,.99726968,1,#0099ff
+Mercury,2439.7,3.7,330104,58.646,0,#ff6600
+Venus,6051.8,8.87,4867320,.018,0,#ffcc00
+Moon,1737,1.62,73476,28,0,#e6e6e6
+Mars,3389.5,3.71,641693,1.026,2,#ff0000
+Jupiter,69911,24.79,1898130000,0.41354,69,#ffcc99
+Saturn,58232,10.4,568319000,0.444,62,#ffff91
+Titan,2576,1.352,134520,15.92,0,#ffffeb
+Uranus,25362,8.87,86810300,0.718,27,#99ccff
+Neptune,24622,11.15,102410000,0.671,14,#0033cc
+Pluto,1108,0.62,13090,6.4,0,#cc66cc

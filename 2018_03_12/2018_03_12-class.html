@@ -63,17 +63,17 @@
       .attr("cx", padding)
       .attr("cy", 100)
       .attr("r", 20)
-      // .on("mouseenter", function(d) {
-      //   d3.select("#tooltip")
-      //     .style("display", "block")
-      //     .style("top", "130px")
-      //     .style("left", xScale(d.distance) + "px")
-      //     .text(d.name);
-      // })
-      // .on("mouseleave", function(d) {
-      //   d3.select("#tooltip")
-      //     .style("display", "none");
-      // })
+      .on("mouseover", function(d) {
+        d3.select("#tooltip")
+          .style("display", "block")
+          .style("top", "130px")
+          .style("left", xScale(d.distance) + "px")
+          .text(d.name);
+      })
+      .on("mouseleave", function(d) {
+        d3.select("#tooltip")
+          .style("display", "none");
+      })
       .transition().duration(1500)
         .attr("cx", function(d) {
           return xScale(d.distance);
