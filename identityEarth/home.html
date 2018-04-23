@@ -96,9 +96,7 @@
       // draw circles
       var planetEnters = planets.enter().append("circle")
         .attr("class", "planet")
-        .attr("r", function(dataPoint) {
-          return radiusScale(dataPoint[indicator]);
-        })
+        .attr("r", 0)
         .attr("fill", function(dataPoint) {
           return String(dataPoint.color);
         })
@@ -129,11 +127,15 @@
           d3.select("#tooltip")
             .style("display", "none");
         })
+        .transition().duration(1500)
+        .attr("r", function(dataPoint) {
+          return radiusScale(dataPoint[indicator]);
+        })
 
       // update circles
       planets.merge(planetEnters)
         .transition()
-        .duration(1000)
+        .duration(1500)
         .attr("fill", function(dataPoint) {
           return String(dataPoint.color);
         })
