@@ -45,13 +45,13 @@ p{
 }
 
 #customSelect{
-  margin-left: 100px !important;
+  text-align: center;
 }
 select#planetSelect{
-    margin-left: 100px !important;
+    margin: auto;
 }
 select#dataPointSelect{
-    margin-left: 100px !important;
+    margin-left: auto;
 }
 
 #tooltip {

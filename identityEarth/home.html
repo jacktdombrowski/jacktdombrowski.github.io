@@ -13,7 +13,7 @@
     <svg id="space">
       <g id="xAxis"></g>
     </svg>
-    <div id="customSelect">
+    <div id="customSelect" style="text-align:center;"">
       <select id="planetSelect" onchange="drawPlanets()">
         <option value="Mercury">Mercury
         <option value="Venus">Venus
@@ -32,7 +32,15 @@
         <option value="mass">Mass
         <option value="dayLength">Average Day Length
       </select>
-      <div id="tooltip"></div>
+      <div id="tooltip" style="
+      font-family: franklin-gothic-urw;
+      font-weight: Demi;
+      text-align: center;
+      color: white;
+      opacity: 0;
+      font-size: 14 px;
+      padding-top: 10px;""
+      ></div>
     </div>
   </body>
   <script>
@@ -58,7 +66,7 @@
     var padding = 425;
     var svg = d3.select("#space")
       .attr("width", window.innerWidth)
-      .attr("height", 500);
+      .attr("height", 550);
 
     //Draw Functions
     var drawPlanets = function() {
@@ -69,9 +77,9 @@
         return d.name == "Earth" || d.name == otherPlanet;
       });
       function legendUpdate(){
-          var legend = document.getElementById("legend");
-          var otherPlanet = document.getElementById("planetSelect").value;
-          var indicator = document.getElementById("dataPointSelect").value;
+          legend = document.getElementById("legend");
+          otherPlanet = document.getElementById("planetSelect").value;
+          indicator = document.getElementById("dataPointSelect").value;
           legend.innerHTML = "Now showing: Earth's " + indicator + " compared to the " + indicator + " of " + otherPlanet
       };
       legendUpdate();
@@ -105,13 +113,14 @@
         })
         .attr("opacity", 0.8)
         .attr("cy", 250)
-        planets.on("mouseenter", function(d) {
+        .on("mouseenter", function(d) {
+          indicator = document.getElementById("dataPointSelect").value;
           d3.select("#tooltip")
-            .style("display", "block")
+            .style("opacity", "100")
             .style("top", "130px")
             .style("left", xScale(d[indicator]) + "px")
             .text(d.name + ": " + d[indicator] + indicatorUnits());
-            function indicatorUnits(d){
+            function indicatorUnits(){
               if (indicator == "radius") {
                   return " km";
               } else if (indicator == "gravity") {
@@ -123,14 +132,14 @@
               }
             };
         })
-        planets.on("mouseleave", function(d) {
+        .on("mouseleave", function(d) {
           d3.select("#tooltip")
-            .style("display", "none");
+            .style("opacity", "0")
         })
         .transition().duration(1500)
         .attr("r", function(dataPoint) {
           return radiusScale(dataPoint[indicator]);
-        })
+        });
 
       // update circles
       planets.merge(planetEnters)
